@@ -33,7 +33,7 @@ let quotes = savedQuotes ? JSON.parse(savedQuotes) : [
     }
 ];
 
-let currentQuote = 0;
+let currentQuote = 5;
 
 
 // Display the current quote
