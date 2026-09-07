@@ -21,6 +21,12 @@ let quotes = [
         song: "Palayo Sa Mundo",
         artist: "Jolianne, Arthur Nery",
         quote: "At kung 'di pa tama sa mata ng tadhana ay panalangin ang tangi kong alay ."
+    },
+
+    {
+        song: "Lifetime (Reimagined)",
+        artist: "Ben & Ben",
+        quote: "Is there a lifetime waiting for us? All this time, I have been yours."
     }
 ];
 
