@@ -1,4 +1,7 @@
-let quotes = [
+// Load saved songs from localStorage
+let savedQuotes = localStorage.getItem("pinkifyQuotes");
+
+let quotes = savedQuotes ? JSON.parse(savedQuotes) : [
     {
         song: "Until I Found You",
         artist: "Stephen Sanchez",
@@ -20,7 +23,7 @@ let quotes = [
     {
         song: "Palayo Sa Mundo",
         artist: "Jolianne, Arthur Nery",
-        quote: "At kung 'di pa tama sa mata ng tadhana ay panalangin ang tangi kong alay ."
+        quote: "At kung 'di pa tama sa mata ng tadhana ay panalangin ang tangi kong alay."
     },
 
     {
@@ -32,6 +35,8 @@ let quotes = [
 
 let currentQuote = 0;
 
+
+// Display the current quote
 function displayQuote() {
     document.getElementById("songTitle").textContent =
         quotes[currentQuote].song;
@@ -43,6 +48,8 @@ function displayQuote() {
         '"' + quotes[currentQuote].quote + '"';
 }
 
+
+// Next button
 function nextQuote() {
     currentQuote++;
 
@@ -53,6 +60,8 @@ function nextQuote() {
     displayQuote();
 }
 
+
+// Previous button
 function previousQuote() {
     currentQuote--;
 
@@ -63,6 +72,8 @@ function previousQuote() {
     displayQuote();
 }
 
+
+// Add a new quote
 function addQuote() {
     let song = document.getElementById("newSong").value;
     let artist = document.getElementById("newArtist").value;
@@ -79,6 +90,9 @@ function addQuote() {
         quote: quote
     });
 
+    // SAVE the updated songs to localStorage
+    localStorage.setItem("pinkifyQuotes", JSON.stringify(quotes));
+
     currentQuote = quotes.length - 1;
 
     displayQuote();
@@ -88,9 +102,11 @@ function addQuote() {
     document.getElementById("newArtist").value = "";
     document.getElementById("newQuote").value = "";
 
-    alert("Quote added!");
+    alert("💗 Quote saved successfully!");
 }
 
+
+// Display song collection
 function displaySongList() {
     let list = document.getElementById("songList");
 
@@ -115,13 +131,14 @@ function displaySongList() {
     });
 }
 
-function searchSongs() {
-    let search = document
-        .getElementById("searchBox")
-        .value
-        .toLowerCase();
 
-    let items = document.querySelectorAll(".song-item");
+// Search songs
+function searchSongs() {
+    let search =
+        document.getElementById("searchBox").value.toLowerCase();
+
+    let items =
+        document.querySelectorAll(".song-item");
 
     items.forEach(function(item) {
         let text = item.textContent.toLowerCase();
@@ -134,5 +151,7 @@ function searchSongs() {
     });
 }
 
+
+// Start website
 displayQuote();
 displaySongList();
