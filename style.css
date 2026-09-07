@@ -8,7 +8,7 @@ body {
 	font-family: "Times New Roman", serif;
 	min-height: 100vh;
 
-	background-color: linear-gradient(
+	background: linear-gradient(
 		135deg,
 		#ffe4f0,
 		#ffb6d5,
