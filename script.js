@@ -1,27 +1,28 @@
-// Load saved songs from localStorage
-let savedQuotes = localStorage.getItem("pinkifyQuotes");
-
-let defaultQuotes = [
+const defaultQuotes = [
     {
         song: "Until I Found You",
         artist: "Stephen Sanchez",
         quote: "I would never fall in love again until I found her."
     },
+
     {
         song: "Love Story",
         artist: "Taylor Swift",
         quote: "You’ll be the prince and I’ll be the princess."
     },
+
     {
         song: "Perfect",
         artist: "Ed Sheeran",
         quote: "Darling, just hold my hand."
     },
+
     {
         song: "Palayo Sa Mundo",
         artist: "Jolianne, Arthur Nery",
         quote: "At kung 'di pa tama sa mata ng tadhana ay panalangin ang tangi kong alay."
     },
+
     {
         song: "Lifetime (Reimagined)",
         artist: "Ben & Ben",
@@ -29,30 +30,17 @@ let defaultQuotes = [
     }
 ];
 
-let savedQuotes = localStorage.getItem("pinkifyQuotes");
-
-let quotes = [...defaultQuotes];
-
 let savedQuotes = JSON.parse(
     localStorage.getItem("pinkifyQuotes") || "[]"
 );
 
-quotes = [
-    ...defaultQuotes,
-    ...savedQuotes.filter(saved =>
-        !defaultQuotes.some(defaultSong =>
-            defaultSong.song === saved.song &&
-            defaultSong.artist === saved.artist &&
-            defaultSong.quote === saved.quote
-        )
-    )
-];
+let quotes = [...defaultQuotes, ...savedQuotes];
 
 let currentQuote = 0;
 
 
-// Display the current quote
 function displayQuote() {
+
     document.getElementById("songTitle").textContent =
         quotes[currentQuote].song;
 
@@ -64,8 +52,8 @@ function displayQuote() {
 }
 
 
-// Next button
 function nextQuote() {
+
     currentQuote++;
 
     if (currentQuote >= quotes.length) {
@@ -76,8 +64,8 @@ function nextQuote() {
 }
 
 
-// Previous button
 function previousQuote() {
+
     currentQuote--;
 
     if (currentQuote < 0) {
@@ -88,25 +76,31 @@ function previousQuote() {
 }
 
 
-// Add a new quote
 function addQuote() {
-    let song = document.getElementById("newSong").value;
-    let artist = document.getElementById("newArtist").value;
-    let quote = document.getElementById("newQuote").value;
+
+    let song = document.getElementById("newSong").value.trim();
+    let artist = document.getElementById("newArtist").value.trim();
+    let quote = document.getElementById("newQuote").value.trim();
 
     if (song === "" || artist === "" || quote === "") {
         alert("Please fill in all the boxes!");
         return;
     }
 
-    quotes.push({
+    let newQuote = {
         song: song,
         artist: artist,
         quote: quote
-    });
+    };
 
-    // SAVE the updated songs to localStorage
-    localStorage.setItem("pinkifyQuotes", JSON.stringify(quotes));
+    quotes.push(newQuote);
+
+    savedQuotes.push(newQuote);
+
+    localStorage.setItem(
+        "pinkifyQuotes",
+        JSON.stringify(savedQuotes)
+    );
 
     currentQuote = quotes.length - 1;
 
@@ -117,17 +111,18 @@ function addQuote() {
     document.getElementById("newArtist").value = "";
     document.getElementById("newQuote").value = "";
 
-    alert("💗 Quote saved successfully!");
+    alert("Quote added! 💗");
 }
 
 
-// Display song collection
 function displaySongList() {
+
     let list = document.getElementById("songList");
 
     list.innerHTML = "";
 
     quotes.forEach(function(song, index) {
+
         let item = document.createElement("div");
 
         item.className = "song-item";
@@ -138,7 +133,9 @@ function displaySongList() {
         `;
 
         item.onclick = function() {
+
             currentQuote = index;
+
             displayQuote();
         };
 
@@ -147,8 +144,8 @@ function displaySongList() {
 }
 
 
-// Search songs
 function searchSongs() {
+
     let search =
         document.getElementById("searchBox").value.toLowerCase();
 
@@ -156,180 +153,20 @@ function searchSongs() {
         document.querySelectorAll(".song-item");
 
     items.forEach(function(item) {
+
         let text = item.textContent.toLowerCase();
 
         if (text.includes(search)) {
+
             item.style.display = "block";
+
         } else {
+
             item.style.display = "none";
         }
     });
 }
 
 
-// Start website
-displayQuote();
-displaySongList();
-
-// Load saved songs
-let savedQuotes = localStorage.getItem("pinkifyQuotes");
-
-let quotes = savedQuotes ? JSON.parse(savedQuotes) : [
-    {
-        song: "Until I Found You",
-        artist: "Stephen Sanchez",
-        quote: "I would never fall in love again until I found her."
-    },
-    {
-        song: "Love Story",
-        artist: "Taylor Swift",
-        quote: "You’ll be the prince and I’ll be the princess."
-    },
-    {
-        song: "Perfect",
-        artist: "Ed Sheeran",
-        quote: "Darling, just hold my hand."
-    },
-    {
-        song: "Palayo Sa Mundo",
-        artist: "Jolianne, Arthur Nery",
-        quote: "At kung 'di pa tama sa mata ng tadhana ay panalangin ang tangi kong alay."
-    },
-    {
-        song: "Lifetime (Reimagined)",
-        artist: "Ben & Ben",
-        quote: "Is there a lifetime waiting for us? All this time, I have been yours."
-    }
-];
-
-let currentQuote = 0;
-
-
-// Show current quote
-function displayQuote() {
-    document.getElementById("songTitle").textContent =
-        quotes[currentQuote].song;
-
-    document.getElementById("artist").textContent =
-        quotes[currentQuote].artist;
-
-    document.getElementById("quote").textContent =
-        '"' + quotes[currentQuote].quote + '"';
-}
-
-
-// Next
-function nextQuote() {
-    currentQuote++;
-
-    if (currentQuote >= quotes.length) {
-        currentQuote = 0;
-    }
-
-    displayQuote();
-}
-
-
-// Previous
-function previousQuote() {
-    currentQuote--;
-
-    if (currentQuote < 0) {
-        currentQuote = quotes.length - 1;
-    }
-
-    displayQuote();
-}
-
-
-// Add Quote
-function addQuote() {
-    let song = document.getElementById("newSong").value.trim();
-    let artist = document.getElementById("newArtist").value.trim();
-    let quote = document.getElementById("newQuote").value.trim();
-
-    if (song === "" || artist === "" || quote === "") {
-        alert("💗 Please fill in all the boxes!");
-        return;
-    }
-
-    // Add new song
-    quotes.push({
-        song: song,
-        artist: artist,
-        quote: quote
-    });
-
-    localStorage.setItem("pinkifyQuotes", JSON.stringify(
-    quotes.filter(q =>
-        !defaultQuotes.some(defaultSong =>
-            defaultSong.song === q.song &&
-            defaultSong.artist === q.artist &&
-            defaultSong.quote === q.quote
-        )
-    )
-));
-    // Show the newly added quote
-    currentQuote = quotes.length - 5;
-
-    displayQuote();
-    displaySongList();
-
-    // Clear input boxes
-    document.getElementById("newSong").value = "";
-    document.getElementById("newArtist").value = "";
-    document.getElementById("newQuote").value = "";
-
-    alert("🎀 Quote added and saved!");
-}
-
-
-// Song Collection
-function displaySongList() {
-    let list = document.getElementById("songList");
-
-    list.innerHTML = "";
-
-    quotes.forEach(function(song, index) {
-        let item = document.createElement("div");
-
-        item.className = "song-item";
-
-        item.innerHTML = `
-            <strong>🎵 ${song.song}</strong>
-            <small>${song.artist}</small>
-        `;
-
-        item.onclick = function() {
-            currentQuote = index;
-            displayQuote();
-        };
-
-        list.appendChild(item);
-    });
-}
-
-
-// Search
-function searchSongs() {
-    let search =
-        document.getElementById("searchBox").value.toLowerCase();
-
-    let items =
-        document.querySelectorAll(".song-item");
-
-    items.forEach(function(item) {
-        let text = item.textContent.toLowerCase();
-
-        if (text.includes(search)) {
-            item.style.display = "block";
-        } else {
-            item.style.display = "none";
-        }
-    });
-}
-
-
-// Start website
 displayQuote();
 displaySongList();
