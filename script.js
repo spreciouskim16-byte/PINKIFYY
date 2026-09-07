@@ -1,37 +1,39 @@
 // Load saved songs from localStorage
 let savedQuotes = localStorage.getItem("pinkifyQuotes");
 
-let quotes = savedQuotes ? JSON.parse(savedQuotes) : [
+let defaultQuotes = [
     {
         song: "Until I Found You",
         artist: "Stephen Sanchez",
         quote: "I would never fall in love again until I found her."
     },
-
     {
         song: "Love Story",
         artist: "Taylor Swift",
         quote: "You’ll be the prince and I’ll be the princess."
     },
-
     {
         song: "Perfect",
         artist: "Ed Sheeran",
         quote: "Darling, just hold my hand."
     },
-
     {
         song: "Palayo Sa Mundo",
         artist: "Jolianne, Arthur Nery",
         quote: "At kung 'di pa tama sa mata ng tadhana ay panalangin ang tangi kong alay."
     },
-
     {
         song: "Lifetime (Reimagined)",
         artist: "Ben & Ben",
         quote: "Is there a lifetime waiting for us? All this time, I have been yours."
     }
 ];
+
+let savedQuotes = localStorage.getItem("pinkifyQuotes");
+
+let quotes = savedQuotes
+    ? JSON.parse(savedQuotes)
+    : defaultQuotes;
 
 let currentQuote = 0;
 
