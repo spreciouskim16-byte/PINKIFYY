@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PINKIFY</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🎀 Songs 🎀</h1>
+
+        <p class="subtitle">
+            Pieces of songs that I love 
+        </p>
+
+        <input
+            type="text"
+            id="searchBox"
+            placeholder="🔍 Search for a song..."
+            onkeyup="searchSongs()"
+        >
+
+        <div class="quote-card">
+
+            <div class="music-icon">🎵</div>
+
+            <h2 id="songTitle">Until I Found You</h2>
+
+            <h3 id="artist">Stephen Sanchez</h3>
+
+            <p id="quote">
+                "I would never fall in love again until I found her."
+            </p>
+
+            <button onclick="previousQuote()">
+                ⬅️ Previous
+            </button>
+
+            <button onclick="nextQuote()">
+                Next ➡️
+            </button>
+
+        </div>
+
+        <div class="add-box">
+
+            <h2>✨ Add a Song Quote ✨</h2>
+
+            <input
+                type="text"
+                id="newSong"
+                placeholder="Song title"
+            >
+
+            <input
+                type="text"
+                id="newArtist"
+                placeholder="Artist"
+            >
+
+            <textarea
+                id="newQuote"
+                placeholder="Enter a short lyric quote..."
+            ></textarea>
+
+            <button onclick="addQuote()">
+                Add Quote
+            </button>
+
+        </div>
+
+        <div class="song-list">
+
+            <h2>🎵 Song Collection</h2>
+
+            <div id="songList"></div>
+
+        </div>
+
+        <footer>
+            Made with Love
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
