@@ -31,9 +31,22 @@ let defaultQuotes = [
 
 let savedQuotes = localStorage.getItem("pinkifyQuotes");
 
-let quotes = savedQuotes
-    ? JSON.parse(savedQuotes)
-    : defaultQuotes;
+let quotes = [...defaultQuotes];
+
+let savedQuotes = JSON.parse(
+    localStorage.getItem("pinkifyQuotes") || "[]"
+);
+
+quotes = [
+    ...defaultQuotes,
+    ...savedQuotes.filter(saved =>
+        !defaultQuotes.some(defaultSong =>
+            defaultSong.song === saved.song &&
+            defaultSong.artist === saved.artist &&
+            defaultSong.quote === saved.quote
+        )
+    )
+];
 
 let currentQuote = 0;
 
@@ -157,7 +170,7 @@ function searchSongs() {
 // Start website
 displayQuote();
 displaySongList();
-5:27 PM
+
 // Load saved songs
 let savedQuotes = localStorage.getItem("pinkifyQuotes");
 
@@ -247,11 +260,17 @@ function addQuote() {
         quote: quote
     });
 
-    // Save to browser
-    localStorage.setItem("pinkifyQuotes", JSON.stringify(quotes));
-
+    localStorage.setItem("pinkifyQuotes", JSON.stringify(
+    quotes.filter(q =>
+        !defaultQuotes.some(defaultSong =>
+            defaultSong.song === q.song &&
+            defaultSong.artist === q.artist &&
+            defaultSong.quote === q.quote
+        )
+    )
+));
     // Show the newly added quote
-    currentQuote = quotes.length - 1;
+    currentQuote = quotes.length - 5;
 
     displayQuote();
     displaySongList();
